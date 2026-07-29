@@ -79,7 +79,7 @@ tools:
 
   # ---------------- Bonus tools ----------------
   - name: send
-    description: "Gửi hoặc đăng một đoạn văn bản. Chỉ dùng sau khi người dùng đã xác nhận bằng clarify(response_type=\"yes_no\")."
+    description: "Gửi hoặc đăng một đoạn văn bản. Luôn gọi trước với confirmed=false (tool tự trả về status=needs_confirmation); chỉ gọi lại với confirmed=true sau khi người dùng xác nhận rõ ràng trong lượt tiếp theo. Không dùng clarify cho việc xác nhận này."
     parameters:
       type: object
       properties:
