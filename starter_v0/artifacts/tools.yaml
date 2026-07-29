@@ -116,3 +116,68 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  # ---------------- Custom Research Tools ----------------
+  - name: github_search
+    description: "Tìm kiếm kho mã nguồn (Repositories), Release Notes hoặc dự án Trending trên GitHub. NÊN DÙNG khi cần tra cứu các dự án mã nguồn mở, codebase, framework, thư viện hoặc repository chính thức của các mô hình/thuật toán AI. KHÔNG DÙNG cho tin tức chung (dùng lookup), thảo luận cộng đồng HackerNews (dùng hn_search) hoặc bài báo khoa học PDF (dùng papers)."
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: "Từ khóa tìm kiếm trên GitHub (ví dụ: 'machine learning', 'rag agent', 'llm-eval')."
+        sort:
+          type: string
+          enum: ["best match", "stars", "forks", "updated"]
+          default: "best match"
+          description: "Tiêu chí sắp xếp kết quả tìm kiếm (stars: nhiều sao nhất, forks: nhiều fork nhất, updated: mới cập nhật, best match: khớp nhất)."
+      required: [query]
+
+  - name: huggingface_search
+    description: "Tra cứu các AI Models, Datasets hoặc Bài báo hot (Papers) trên Hugging Face. NÊN DÙNG khi cần tìm kiếm model weights/checkpoints (như Llama, Mistral, Whisper, DeepSeek), bộ dữ liệu huấn luyện/benchmark AI, hoặc các bài báo khoa học đang hot trên Hugging Face. KHÔNG DÙNG để tìm repository mã nguồn thuần trên GitHub (dùng github_search) hoặc tin tức chung (dùng lookup)."
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: "Từ khóa tìm kiếm model, dataset hoặc bài báo (ví dụ: 'llama-3', 'vietnamese-dataset', 'transformer')."
+        search_type:
+          type: string
+          enum: ["models", "datasets", "papers"]
+          default: "models"
+          description: "Loại đối tượng cần tra cứu trên Hugging Face: models (mô hình AI), datasets (bộ dữ liệu), papers (bài báo khoa học hot)."
+      required: [query]
+
+  - name: hn_search
+    description: "Tìm kiếm bài viết và thảo luận của cộng đồng lập trình viên / chuyên gia AI trên Hacker News thông qua Algolia API. NÊN DÙNG khi cần tìm kiếm phản hồi, đánh giá, quan điểm kỹ thuật hoặc tin tức nổi bật từ cộng đồng dev/AI về công nghệ mới ra mắt. KHÔNG DÙNG để tải file PDF (dùng paper_text) hoặc tìm mã nguồn GitHub (dùng github_search)."
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: "Từ khóa tìm kiếm thảo luận trên Hacker News (ví dụ: 'deepseek', 'gpt-4o', 'rust vs python')."
+        limit:
+          type: integer
+          default: 5
+          description: "Số lượng bài viết/thảo luận tối đa muốn lấy về (mặc định: 5)."
+      required: [query]
+
+  - name: youtube_transcript
+    description: "Trích xuất phụ đề/transcript (vietsub, english sub) từ video YouTube. NÊN DÙNG khi người dùng gửi URL hoặc ID video YouTube (keynote, hội thảo khoa học, demo sản phẩm, bài giảng AI) và muốn tóm tắt, trích xuất lời thoại hoặc phân tích nội dung video. KHÔNG DÙNG cho bài báo PDF (dùng paper_text) hoặc bài viết trang web thông thường (dùng fetch)."
+    parameters:
+      type: object
+      properties:
+        video_url_or_id:
+          type: string
+          default: ""
+          description: "URL đầy đủ (ví dụ: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ') hoặc Video ID 11 ký tự của YouTube."
+        languages:
+          type: array
+          items:
+            type: string
+          default: ["vi", "en"]
+          description: "Danh sách mã ngôn ngữ phụ đề ưu tiên theo thứ tự (mặc định ưu tiên 'vi' sau đó đến 'en')."
+      required: [video_url_or_id]
