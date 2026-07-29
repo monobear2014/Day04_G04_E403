@@ -9,7 +9,8 @@
 - Team: G04
 - Members: 
     - 2A202601871 | Nguyễn Thanh Tùng | Tool Developer
-    - 2A202602016 | Nguyễn Hoài Nam | UI/ Deploy Engineer 
+    - 2A202602016 | Nguyễn Hoài Nam | UI/ Deploy Engineer
+    - 2A202601685 | Nguyễn Minh Hiếu | UI/ Deploy Engineer
     - 2A202601627 | Nguyễn Quốc Hiệu | Agent/Prompt Lead
     - 2A202602036 | Nguyễn Khắc Huy | Agent/Prompt Lead
     - 2A202601701 | Phan Trần Tường Vy | QA/Failure Analyst
@@ -81,38 +82,56 @@
 
 ## B1. Version evidence
 
-Fill from `artifacts/version_log.csv` and `runs/*.json`.
+Các run dưới đây đều có `provider_error_cases = 0` và `measured_cases = total_cases`; vì vậy metric hợp lệ. Số liệu lấy trực tiếp từ `summary` của run JSON.
 
-| Version | Prompt/tool change | Hypothesis | Metric name | Before | After | Run File |
-|---|---|---|---|---:|---:|---|
-| v0 | baseline |  |  |  |  |  |
-| v1 |  |  |  |  |  |  |
-| v2 |  |  |  |  |  |  |
-| v3 |  |  |  |  |  |  |
+| Version | Prompt/tool change | Hypothesis | Case accuracy (trước → sau) | Kết quả chính | Run file |
+|---|---|---|---:|---|---|
+| v0 | Baseline | Chưa có guardrail cụ thể cho thiếu thông tin, timeline, URL và confirmation. | — → 65% (13/20) | Routing 75%, argument 65%, multi-turn 100%; 7 fail. | `runs/v0_B_base_openrouter_20260729T105323445856.json` |
+| v1 | Thiếu handle/URL phải `clarify`, không đoán. | Missing-info guardrails thay việc đoán bằng `clarify`. | 65% → 90% (18/20) | Còn R01 và R12. | `runs/v1_B_base_openrouter_20260729T105133378808.json` |
+| v2 | Account-based request dùng `timeline`; map public name sang handle. | Loại lỗi routing R01. | 90% → 95% (19/20) | R01 pass; còn R12. | `runs/v2_B_base_openrouter_20260729T105255278685.json` |
+| v3 | `clarify(response_type="yes_no")` trước send/post/publish. | Chặn write action sớm. | 95% → 100% (20/20) | Routing, argument, multi-turn đều 100%. | `runs/v3_B_base_openrouter_20260729T105344978755.json` |
+
+Sau khi tích hợp tool mới và group eval, nhóm regression-test tiếp. v4–v7 xử lý contract send, ngữ cảnh multi-turn, bare arXiv ID và duplicate `social_search`.
+
+| Regression evidence | Kết quả | Run file |
+|---|---|---|
+| Group v6 | 9/10; B08 gọi `social_search` hai lần. | `runs/v6-final_B_group_openrouter_20260729T113931711922.json` |
+| Group v7 | 10/10; mọi metric 100%. | `runs/v7-b08_B_group_openrouter_20260729T114027083395.json` |
+| Base regression v7 | 20/20; mọi metric 100%. | `runs/v7-b08_B_base_openrouter_20260729T114142721987.json` |
+
+> Lưu ý audit: dòng v0 trong `artifacts/version_log.csv` tham chiếu một run không có trong `runs/`. Bảng trên dùng run v0 hiện có và ghi nhận được (`...105323445856.json`, 65%) làm evidence nguồn.
 
 ## B2. Failure analysis
 
-Use actual failures from `results[*].result.failures`.
+Các failure dưới đây lấy từ `results[*].result.failures` và `actual_tool_calls`, không suy luận từ câu trả lời cuối.
 
-| Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
+| Case ID | Failure type | Actual tool call(s) | What failed | Fix / evidence sau fix |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| R03_web_news_routing (v0) | wrong_arg_value | `lookup(query="AI news", topic="news", timeframe="day")` | Query phải là `AI`, model thêm `news`. | Làm rõ arg convention; v1 trở đi pass. |
+| R08_out_of_scope (v0) | out_of_scope | `send(text="Nguyên hàm ...")` | Câu toán ngoài scope lại bị biến thành action tool. | Tool trả `needs_confirmation`, nhưng routing vẫn fail vì lẽ ra không gọi tool. |
+| R10_missing_handle (v0) | missing_info | `timeline(screenname="sama")` | Không có account/handle nhưng agent tự đoán. | v1 thêm missing-handle rule; pass. |
+| R11_missing_url (v0) | missing_info | `fetch(url="https://www.example.com/article")` | URL không được cung cấp nhưng agent tự tạo URL. | v1 thêm missing-URL rule; pass. |
+| R12_confirm_before_send (v0–v2) | wrong_boundary | `send(...)` | Thiếu `clarify(response_type="yes_no")` trước action. | v3 thêm clarify-first boundary; pass ở v3 và v7. |
+| R13_parallel_web_and_tweets (v0) | wrong_arg_value | `lookup(query="AI news", timeframe="day")` + `social_search(query="AI")` | Lookup thiếu `topic="news"` và query sai expected. | Làm rõ news args; v1 trở đi pass. |
+| R14_out_of_scope_coding (v0) | out_of_scope | `send(text="def fibonacci...")` | Câu coding ngoài scope vẫn gọi send. | Tool bị chặn, nhưng routing không đúng; cần guardrail out-of-scope. |
+| B08 (v6) | extra_tool_call | Hai `social_search`: `OpenAI` và `AI Agent` | Một user turn bị tách thành hai lời gọi cùng tool. | v7 yêu cầu đúng một call, gộp keywords; group pass 10/10. |
 
 ## B3. Team eval cases
 
-List the 10 cases added to `data/eval_group.json`:
+`data/eval_group.json` có đúng **10 case**: 5 single-turn (B01–B05) và 5 multi-turn (B06–B10). Kết quả dưới đây là run group v7.
 
-- 5 single-turn
-- 5 multi-turn
-
-This section is for the mandatory team-authored eval set. Optional built-ins do
-not belong here.
-
-File template để trống có chủ đích; nhóm phải tự thiết kế đủ 10 case.
-
-| Case ID | What It Tests | Expected Tool/Behavior | Result |
-|---|---|---|---|
-|  |  |  |  |
+| Case ID | Dạng | What it tests | Expected tool/behavior | Result v7 |
+|---|---|---|---|---|
+| B01 | Single | Web research mới nhất | `lookup` | PASS |
+| B02 | Single | URL cụ thể | `fetch(url=...)` | PASS |
+| B03 | Single | Tìm paper arXiv | `papers` | PASS |
+| B04 | Single | Bài đăng của account OpenAI | `timeline` | PASS |
+| B05 | Single | Confirmation boundary trước Telegram | `clarify(response_type="yes_no")` | PASS |
+| B06 | Multi | Tóm tắt kết quả turn trước | `format`, không lặp research | PASS |
+| B07 | Multi | Bare arXiv ID | `paper_text(arxiv_url="https://arxiv.org/abs/1706.03762")` | PASS |
+| B08 | Multi | Đổi từ web sang social posts | Một `social_search` duy nhất | PASS |
+| B09 | Multi | Kiểm tra chính sách | `policy` | PASS |
+| B10 | Multi | Thiếu định danh paper | `clarify`, không đoán | PASS |
 
 ## B4. Live chat evidence
 
@@ -120,23 +139,28 @@ Use `transcripts/*.transcript.json`.
 
 | Scenario/Turn | Version | Tool Calls + Args | Transcript/Run | Outcome |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| Tìm repo GitHub về RAG agent | `v0+p8d0bf1b59d4c+t5c7b6be9432e` | `github_search(query="RAG agent", sort="best match")` | `transcripts/v0_openrouter_20260729T114537381110.transcript.json`, turn 1 | Answered; tool trả repo và agent tổng hợp. |
+| Yêu cầu đăng bản tin lên Telegram | `v0+p8d0bf1b59d4c+t5c7b6be9432e` | `clarify(response_type="yes_no")` | `transcripts/v0_openrouter_20260729T114537381110.transcript.json`, turn 2 | `waiting_for_user`; không gọi `send` trước xác nhận. |
+| Tìm model text-to-speech trên Hugging Face | `v0+p8d0bf1b59d4c+t5c7b6be9432e` | `huggingface_search(query="text-to-speech", search_type="models")` | `transcripts/v0_openrouter_20260729T114537381110.transcript.json`, turn 3 | Answered; tool trả 10 mục. |
+| Multi-turn news → YouTube → GitHub → Hugging Face | `v0+pc72dbc548e3d+ta73ac1dbe420` | `lookup`; `youtube_transcript`; `github_search`; `huggingface_search` | `transcripts/v0_openrouter_20260729T122407935211.transcript.json`, turns 1–5 | Lookup/GitHub/Hugging Face có kết quả. YouTube log 1 thành công và 2 lỗi nguồn để review. |
+
+Chưa có transcript live riêng cho kịch bản “thiếu thông tin rồi user bổ sung ở turn sau”. B06–B10 kiểm tra routing ngữ cảnh qua eval; trước nộp cuối nên lưu thêm transcript live này.
 
 ## B5. Tool capability evidence
 
-Phân loại rõ tool mới bắt buộc, optional built-in và tool đủ điều kiện bonus. Chỉ ghi Telegram/PDF nếu nhóm thực sự dùng; base report không cần chúng.
-
-UI is core deliverable, not bonus. Do not list it here.
+UI là deliverable core và không tính bonus; bảng này chỉ ghi evidence tool.
 
 | Category | Evidence File | What Worked | Risk / Guardrail |
 |---|---|---|---|
-| Must-have: tool mới đầu tiên |  |  |  |
-| Optional built-in |  |  |  |
-| Bonus: tool mới thứ 4 trở đi |  |  |  |
+| Must-have: `github_search` (tool mới thứ nhất) | `tools/github_search/TOOL.md`, `tools/github_search/tool.py`; transcript `...114537381110`, turn 1 | Tìm GitHub `RAG agent`, trả metadata repo. | Chỉ dùng cho repo/code; không thay lookup hoặc papers. |
+| Bonus: `huggingface_search` (tool mới #2) | `tools/huggingface_search/`; transcripts `...114537381110` turn 3 và `...122407935211` turn 5 | Trả 10 model text-to-speech và 10 healthcare datasets. | Chọn đúng `search_type`; không dùng thay GitHub search. |
+| Bonus: `hn_search` (tool mới #3) | `tools/hn_search/TOOL.md`, `tools/hn_search/tool.py` | Đã đăng ký và có implementation; chưa có live transcript hiện tại. | Cần bổ sung smoke-test/run evidence trước khi claim đã demo. |
+| Bonus: `youtube_transcript` (tool mới #4) | `tools/youtube_transcript/`; transcript `...122407935211`, turn 2 | Có ít nhất một URL trả transcript; log giữ lỗi nguồn còn lại. | Phụ thuộc subtitle/video/ngôn ngữ; cần fallback và báo lỗi rõ. |
+| Optional built-in: `send` | `tools/send/TOOL.md`; transcript `...114537381110` turn 2; base R12 | Live chat hỏi xác nhận; v3/v7 base eval pass boundary. | Không live-send trước yes/no confirmation; không lộ credential. |
 
 ## B6. Reflection
 
-- Which fixes belonged in `system_prompt.md`?
-- Which fixes belonged in `tools.yaml`?
-- Which failure needed manual review instead of automatic grading?
-- What would you improve next?
+- **Fix thuộc `system_prompt.md`:** policy theo ngữ cảnh hội thoại: reuse kết quả để `format`, đổi nguồn khi intent đổi, gộp keywords cho một `social_search`, xử lý bare arXiv ID và confirmation boundary.
+- **Fix thuộc `tools.yaml`:** ranh giới tool và argument convention: `timeline` cho account, `social_search` cho topic, `fetch` chỉ khi có URL, `lookup` cho web/news, cùng enum/default của `topic`, `timeframe`, `search_type`.
+- **Manual review:** R08/R14 v0 bị fail routing vì gọi `send`, nhưng tool trả `needs_confirmation` nên không có tác động gửi thực. Auto-grader vẫn đúng khi đánh fail routing. Lỗi YouTube live là availability/ngôn ngữ của nguồn, không tự động chứng minh routing sai.
+- **Cải thiện tiếp theo:** thêm explicit out-of-scope/no-tool rule; lưu live transcript cho missing-info → user bổ sung; smoke-test `hn_search`; sửa dòng v0 trong `version_log.csv` để khớp run JSON; thử fallback language cho YouTube.
