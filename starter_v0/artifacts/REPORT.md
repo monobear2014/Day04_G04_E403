@@ -27,7 +27,7 @@
 
 **Link dùng thử (truy cập được trong showdown):**
 
-Chưa có URL vì UI chưa được tạo/deploy trong starter hiện tại. Khi hoàn thành UI Streamlit, dùng `http://localhost:8501` để demo tại chỗ hoặc điền public URL (ví dụ Cloudflare Tunnel) tại đây.
+`https://zealand-exceed-productive-interests.trycloudflare.com/`
 
 ## A2. Tool agent có
 
