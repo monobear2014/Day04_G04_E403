@@ -23,11 +23,15 @@
 
 ## A1. Agent này làm được gì
 
-Đây là research agent hỗ trợ tìm và đọc thông tin từ web hoặc mạng xã hội, sau đó tổng hợp kết quả thành digest Markdown. Agent cũng có thể hỏi lại khi yêu cầu còn thiếu dữ kiện, và yêu cầu xác nhận trước các hành động gửi/publish.
+**Research Agent** — trợ lý tìm kiếm & tổng hợp thông tin đa nguồn, có khả năng:
 
-**Link dùng thử (truy cập được trong showdown):**
+- Tìm web/tin tức (`lookup`), tìm bài đăng mạng xã hội theo tài khoản hoặc từ khóa (`timeline`, `social_search`), đọc nội dung một URL cụ thể (`fetch`), rồi tổng hợp thành digest Markdown (`format`).
+- Tra cứu thêm trên GitHub, HuggingFace, Hacker News và lấy transcript video YouTube (4 tool mới nhóm tự thêm).
+- Chủ động hỏi lại (`clarify`) khi thiếu thông tin thay vì đoán bừa, và luôn xin xác nhận trước khi thực hiện hành động gửi/đăng (`send`).
 
-`https://zealand-exceed-productive-interests.trycloudflare.com/`
+**🔗 Link dùng thử:** [zealand-exceed-productive-interests.trycloudflare.com](https://zealand-exceed-productive-interests.trycloudflare.com/)
+
+> Provider: OpenRouter (`openai/gpt-4o-mini`). Link chỉ sống khi máy demo còn chạy Streamlit + Cloudflare Tunnel — nếu link không mở được, dùng `http://localhost:8501` khi demo trực tiếp trên máy trình chiếu.
 
 ## A2. Tool agent có
 
@@ -43,8 +47,12 @@
 | `policy` | Tìm quy định nội bộ liên quan đến nghiên cứu, nguồn, dữ liệu và tool usage. | Không — optional built-in |
 | `papers` | Tìm bài báo khoa học trên arXiv. | Không — optional built-in |
 | `paper_text` | Tải và trích xuất một phần văn bản từ paper arXiv. | Không — optional built-in |
+| `github_search` | Tìm repo GitHub theo từ khóa, sắp xếp theo best match. | **Có** — tool mới (must-have) |
+| `huggingface_search` | Tìm model/dataset trên HuggingFace Hub. | **Có** — tool mới (bonus #2) |
+| `hn_search` | Tìm bài đăng/thảo luận trên Hacker News. | **Có** — tool mới (bonus #3) |
+| `youtube_transcript` | Lấy transcript của một video YouTube. | **Có** — tool mới (bonus #4) |
 
-> Chưa có tool mới do nhóm tự thêm trong starter hiện tại. Trước khi nộp cần bổ sung ít nhất một tool mới, cùng `TOOL.md`, implementation, đăng ký trong `tools/__init__.py` và khai báo trong `artifacts/tools.yaml`.
+> 4 tool mới đã được nhóm tự thêm đầy đủ: `TOOL.md`, implementation, đăng ký trong `tools/__init__.py`, khai báo trong `artifacts/tools.yaml`, đã smoke-test và chạy qua eval + UI thật.
 
 ## A3. Câu hỏi mẫu để thử
 

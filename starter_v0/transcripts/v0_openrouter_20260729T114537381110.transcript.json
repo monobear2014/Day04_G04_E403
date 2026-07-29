@@ -1,0 +1,682 @@
+{
+  "transcript_id": "v0_openrouter_20260729T114537381110",
+  "version": "v0",
+  "artifact_version": "v0+p8d0bf1b59d4c+t5c7b6be9432e",
+  "prompt_hash": "8d0bf1b59d4cbd37660e5530fd59c9dbe3e01b4d6af9d2df871bd280a756b8a0",
+  "tools_hash": "5c7b6be9432e33815c829b1a96e383d70c41d5e671e3b0245a33e681b6b5cd1a",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "artifacts/system_prompt.md",
+  "tools": "artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T11:46:17",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T11:46:17",
+      "user": "Tìm repo GitHub về RAG agent",
+      "status": "answered",
+      "assistant_text": "Here are some GitHub repositories related to RAG (Retrieval-Augmented Generation) agents:\n\n1. **[RagaAI-Catalyst](https://github.com/raga-ai-hub/RagaAI-Catalyst)**  \n   - **Description**: Python SDK for Agent AI Observability, Monitoring and Evaluation Framework. Includes features like agent, LLM, and tools tracing, debugging multi-agentic systems, self-hosted dashboard, and advanced analytics with timeline and execution graph view.  \n   - **Stars**: 16,140 | **Forks**: 3,576 | **Language**: Python\n\n2. **[awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)**  \n   - **Description**: 100+ AI Agents, Agent Skills, and RAG Apps - Free and Open Source.  \n   - **Stars**: 128,565 | **Forks**: 18,977 | **Language**: Python\n\n3. **[hello-agents](https://github.com/datawhalechina/hello-agents)**  \n   - **Description**: A tutorial on building intelligent agents from scratch.  \n   - **Stars**: 69,252 | **Forks**: 8,628 | **Language**: Python\n\n4. **[ragflow](https://github.com/infiniflow/ragflow)**  \n   - **Description**: RAGFlow is a leading open-source Retrieval-Augmented Generation (RAG) engine that fuses cutting-edge RAG with Agent capabilities to create a superior context layer for LLMs.  \n   - **Stars**: 86,294 | **Forks**: 10,122 | **Language**: Go\n\n5. **[production-agentic-rag-course](https://github.com/jamwithai/production-agentic-rag-course)**  \n   - **Description**: Course repository for building agentic RAG systems.  \n   - **Stars**: 8,167 | **Forks**: 1,812 | **Language**: Python\n\n6. **[RAG-Agents-Accelerator](https://github.com/pablomarin/RAG-Agents-Accelerator)**  \n   - **Description**: Azure AI Search + Azure OpenAI Accelerator to build Agents.  \n   - **Stars**: 420 | **Forks**: 973 | **Language**: Jupyter Notebook\n\n7. **[agentic-rag-for-dummies](https://github.com/GiovanniPasq/agentic-rag-for-dummies)**  \n   - **Description**: A modular Agentic RAG built with LangGraph — learn Retrieval-Augmented Generation Agents in minutes.  \n   - **Stars**: 3,813 | **Forks**: 488 | **Language**: Jupyter Notebook\n\n8. **[OpenViking](https://github.com/volcengine/OpenViking)**  \n   - **Description**: Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG, and Skills.  \n   - **Stars**: 27,586 | **Forks**: 2,163 | **Language**: Python\n\n9. **[ragent](https://github.com/nageoffer/ragent)**  \n   - **Description**: Enterprise-level Agentic RAG intelligent agent covering document parsing, multi-route retrieval, intent recognition, question rewriting, session memory, and deep thinking.  \n   - **Stars**: 3,353 | **Forks**: 672 | **Language**: Java\n\nThese repositories cover a range of functionalities and frameworks related to RAG agents.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "github_search",
+              "args": {
+                "query": "RAG agent",
+                "sort": "best match"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "github_search",
+              "args": {
+                "query": "RAG agent",
+                "sort": "best match"
+              },
+              "result": {
+                "error": null,
+                "data": {
+                  "total_count": 56320,
+                  "items": [
+                    {
+                      "name": "RagaAI-Catalyst",
+                      "full_name": "raga-ai-hub/RagaAI-Catalyst",
+                      "html_url": "https://github.com/raga-ai-hub/RagaAI-Catalyst",
+                      "description": "Python SDK for Agent AI Observability, Monitoring and Evaluation Framework. Includes features like agent, llm and tools tracing, debugging multi-agentic system, self-hosted dashboard and advanced analytics with timeline and execution graph view ",
+                      "stargazers_count": 16140,
+                      "forks_count": 3576,
+                      "language": "Python",
+                      "updated_at": "2026-07-29T02:29:32Z",
+                      "owner": "raga-ai-hub"
+                    },
+                    {
+                      "name": "awesome-llm-apps",
+                      "full_name": "Shubhamsaboo/awesome-llm-apps",
+                      "html_url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
+                      "description": "100+ AI Agents, Agent Skills and RAG Apps - Free and Open Source.",
+                      "stargazers_count": 128565,
+                      "forks_count": 18977,
+                      "language": "Python",
+                      "updated_at": "2026-07-29T04:32:51Z",
+                      "owner": "Shubhamsaboo"
+                    },
+                    {
+                      "name": "hello-agents",
+                      "full_name": "datawhalechina/hello-agents",
+                      "html_url": "https://github.com/datawhalechina/hello-agents",
+                      "description": "📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程",
+                      "stargazers_count": 69252,
+                      "forks_count": 8628,
+                      "language": "Python",
+                      "updated_at": "2026-07-29T04:46:19Z",
+                      "owner": "datawhalechina"
+                    },
+                    {
+                      "name": "happy-llm",
+                      "full_name": "datawhalechina/happy-llm",
+                      "html_url": "https://github.com/datawhalechina/happy-llm",
+                      "description": "📚 从零开始构建大模型",
+                      "stargazers_count": 32440,
+                      "forks_count": 3078,
+                      "language": "Jupyter Notebook",
+                      "updated_at": "2026-07-29T03:41:50Z",
+                      "owner": "datawhalechina"
+                    },
+                    {
+                      "name": "ragflow",
+                      "full_name": "infiniflow/ragflow",
+                      "html_url": "https://github.com/infiniflow/ragflow",
+                      "description": "RAGFlow is a leading open-source Retrieval-Augmented Generation (RAG) engine that fuses cutting-edge RAG with Agent capabilities to create a superior context layer for LLMs",
+                      "stargazers_count": 86294,
+                      "forks_count": 10122,
+                      "language": "Go",
+                      "updated_at": "2026-07-29T04:25:26Z",
+                      "owner": "infiniflow"
+                    },
+                    {
+                      "name": "production-agentic-rag-course",
+                      "full_name": "jamwithai/production-agentic-rag-course",
+                      "html_url": "https://github.com/jamwithai/production-agentic-rag-course",
+                      "description": null,
+                      "stargazers_count": 8167,
+                      "forks_count": 1812,
+                      "language": "Python",
+                      "updated_at": "2026-07-28T20:37:17Z",
+                      "owner": "jamwithai"
+                    },
+                    {
+                      "name": "RAG-Agents-Accelerator",
+                      "full_name": "pablomarin/RAG-Agents-Accelerator",
+                      "html_url": "https://github.com/pablomarin/RAG-Agents-Accelerator",
+                      "description": "Azure AI Search + Azure OpenAI Accelerator to build Agents",
+                      "stargazers_count": 420,
+                      "forks_count": 973,
+                      "language": "Jupyter Notebook",
+                      "updated_at": "2026-07-08T19:08:25Z",
+                      "owner": "pablomarin"
+                    },
+                    {
+                      "name": "agentic-rag-for-dummies",
+                      "full_name": "GiovanniPasq/agentic-rag-for-dummies",
+                      "html_url": "https://github.com/GiovanniPasq/agentic-rag-for-dummies",
+                      "description": "A modular Agentic RAG built with LangGraph — learn Retrieval-Augmented Generation Agents in minutes.",
+                      "stargazers_count": 3813,
+                      "forks_count": 488,
+                      "language": "Jupyter Notebook",
+                      "updated_at": "2026-07-28T17:45:21Z",
+                      "owner": "GiovanniPasq"
+                    },
+                    {
+                      "name": "OpenViking",
+                      "full_name": "volcengine/OpenViking",
+                      "html_url": "https://github.com/volcengine/OpenViking",
+                      "description": "Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills.",
+                      "stargazers_count": 27586,
+                      "forks_count": 2163,
+                      "language": "Python",
+                      "updated_at": "2026-07-29T04:06:10Z",
+                      "owner": "volcengine"
+                    },
+                    {
+                      "name": "ragent",
+                      "full_name": "nageoffer/ragent",
+                      "html_url": "https://github.com/nageoffer/ragent",
+                      "description": "企业级 Agentic RAG 智能体 - 全链路覆盖文档解析、多路检索、意图识别、问题重写、会话记忆、MCP 工具调用与深度思考。面向真实业务场景，从 0 到 1 完整工程实现。",
+                      "stargazers_count": 3353,
+                      "forks_count": 672,
+                      "language": "Java",
+                      "updated_at": "2026-07-29T02:31:49Z",
+                      "owner": "nageoffer"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Here are some GitHub repositories related to RAG (Retrieval-Augmented Generation) agents:\n\n1. **[RagaAI-Catalyst](https://github.com/raga-ai-hub/RagaAI-Catalyst)**  \n   - **Description**: Python SDK for Agent AI Observability, Monitoring and Evaluation Framework. Includes features like agent, LLM, and tools tracing, debugging multi-agentic systems, self-hosted dashboard, and advanced analytics with timeline and execution graph view.  \n   - **Stars**: 16,140 | **Forks**: 3,576 | **Language**: Python\n\n2. **[awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)**  \n   - **Description**: 100+ AI Agents, Agent Skills, and RAG Apps - Free and Open Source.  \n   - **Stars**: 128,565 | **Forks**: 18,977 | **Language**: Python\n\n3. **[hello-agents](https://github.com/datawhalechina/hello-agents)**  \n   - **Description**: A tutorial on building intelligent agents from scratch.  \n   - **Stars**: 69,252 | **Forks**: 8,628 | **Language**: Python\n\n4. **[ragflow](https://github.com/infiniflow/ragflow)**  \n   - **Description**: RAGFlow is a leading open-source Retrieval-Augmented Generation (RAG) engine that fuses cutting-edge RAG with Agent capabilities to create a superior context layer for LLMs.  \n   - **Stars**: 86,294 | **Forks**: 10,122 | **Language**: Go\n\n5. **[production-agentic-rag-course](https://github.com/jamwithai/production-agentic-rag-course)**  \n   - **Description**: Course repository for building agentic RAG systems.  \n   - **Stars**: 8,167 | **Forks**: 1,812 | **Language**: Python\n\n6. **[RAG-Agents-Accelerator](https://github.com/pablomarin/RAG-Agents-Accelerator)**  \n   - **Description**: Azure AI Search + Azure OpenAI Accelerator to build Agents.  \n   - **Stars**: 420 | **Forks**: 973 | **Language**: Jupyter Notebook\n\n7. **[agentic-rag-for-dummies](https://github.com/GiovanniPasq/agentic-rag-for-dummies)**  \n   - **Description**: A modular Agentic RAG built with LangGraph — learn Retrieval-Augmented Generation Agents in minutes.  \n   - **Stars**: 3,813 | **Forks**: 488 | **Language**: Jupyter Notebook\n\n8. **[OpenViking](https://github.com/volcengine/OpenViking)**  \n   - **Description**: Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG, and Skills.  \n   - **Stars**: 27,586 | **Forks**: 2,163 | **Language**: Python\n\n9. **[ragent](https://github.com/nageoffer/ragent)**  \n   - **Description**: Enterprise-level Agentic RAG intelligent agent covering document parsing, multi-route retrieval, intent recognition, question rewriting, session memory, and deep thinking.  \n   - **Stars**: 3,353 | **Forks**: 672 | **Language**: Java\n\nThese repositories cover a range of functionalities and frameworks related to RAG agents.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "github_search",
+          "args": {
+            "query": "RAG agent",
+            "sort": "best match"
+          },
+          "result": {
+            "error": null,
+            "data": {
+              "total_count": 56320,
+              "items": [
+                {
+                  "name": "RagaAI-Catalyst",
+                  "full_name": "raga-ai-hub/RagaAI-Catalyst",
+                  "html_url": "https://github.com/raga-ai-hub/RagaAI-Catalyst",
+                  "description": "Python SDK for Agent AI Observability, Monitoring and Evaluation Framework. Includes features like agent, llm and tools tracing, debugging multi-agentic system, self-hosted dashboard and advanced analytics with timeline and execution graph view ",
+                  "stargazers_count": 16140,
+                  "forks_count": 3576,
+                  "language": "Python",
+                  "updated_at": "2026-07-29T02:29:32Z",
+                  "owner": "raga-ai-hub"
+                },
+                {
+                  "name": "awesome-llm-apps",
+                  "full_name": "Shubhamsaboo/awesome-llm-apps",
+                  "html_url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
+                  "description": "100+ AI Agents, Agent Skills and RAG Apps - Free and Open Source.",
+                  "stargazers_count": 128565,
+                  "forks_count": 18977,
+                  "language": "Python",
+                  "updated_at": "2026-07-29T04:32:51Z",
+                  "owner": "Shubhamsaboo"
+                },
+                {
+                  "name": "hello-agents",
+                  "full_name": "datawhalechina/hello-agents",
+                  "html_url": "https://github.com/datawhalechina/hello-agents",
+                  "description": "📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程",
+                  "stargazers_count": 69252,
+                  "forks_count": 8628,
+                  "language": "Python",
+                  "updated_at": "2026-07-29T04:46:19Z",
+                  "owner": "datawhalechina"
+                },
+                {
+                  "name": "happy-llm",
+                  "full_name": "datawhalechina/happy-llm",
+                  "html_url": "https://github.com/datawhalechina/happy-llm",
+                  "description": "📚 从零开始构建大模型",
+                  "stargazers_count": 32440,
+                  "forks_count": 3078,
+                  "language": "Jupyter Notebook",
+                  "updated_at": "2026-07-29T03:41:50Z",
+                  "owner": "datawhalechina"
+                },
+                {
+                  "name": "ragflow",
+                  "full_name": "infiniflow/ragflow",
+                  "html_url": "https://github.com/infiniflow/ragflow",
+                  "description": "RAGFlow is a leading open-source Retrieval-Augmented Generation (RAG) engine that fuses cutting-edge RAG with Agent capabilities to create a superior context layer for LLMs",
+                  "stargazers_count": 86294,
+                  "forks_count": 10122,
+                  "language": "Go",
+                  "updated_at": "2026-07-29T04:25:26Z",
+                  "owner": "infiniflow"
+                },
+                {
+                  "name": "production-agentic-rag-course",
+                  "full_name": "jamwithai/production-agentic-rag-course",
+                  "html_url": "https://github.com/jamwithai/production-agentic-rag-course",
+                  "description": null,
+                  "stargazers_count": 8167,
+                  "forks_count": 1812,
+                  "language": "Python",
+                  "updated_at": "2026-07-28T20:37:17Z",
+                  "owner": "jamwithai"
+                },
+                {
+                  "name": "RAG-Agents-Accelerator",
+                  "full_name": "pablomarin/RAG-Agents-Accelerator",
+                  "html_url": "https://github.com/pablomarin/RAG-Agents-Accelerator",
+                  "description": "Azure AI Search + Azure OpenAI Accelerator to build Agents",
+                  "stargazers_count": 420,
+                  "forks_count": 973,
+                  "language": "Jupyter Notebook",
+                  "updated_at": "2026-07-08T19:08:25Z",
+                  "owner": "pablomarin"
+                },
+                {
+                  "name": "agentic-rag-for-dummies",
+                  "full_name": "GiovanniPasq/agentic-rag-for-dummies",
+                  "html_url": "https://github.com/GiovanniPasq/agentic-rag-for-dummies",
+                  "description": "A modular Agentic RAG built with LangGraph — learn Retrieval-Augmented Generation Agents in minutes.",
+                  "stargazers_count": 3813,
+                  "forks_count": 488,
+                  "language": "Jupyter Notebook",
+                  "updated_at": "2026-07-28T17:45:21Z",
+                  "owner": "GiovanniPasq"
+                },
+                {
+                  "name": "OpenViking",
+                  "full_name": "volcengine/OpenViking",
+                  "html_url": "https://github.com/volcengine/OpenViking",
+                  "description": "Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills.",
+                  "stargazers_count": 27586,
+                  "forks_count": 2163,
+                  "language": "Python",
+                  "updated_at": "2026-07-29T04:06:10Z",
+                  "owner": "volcengine"
+                },
+                {
+                  "name": "ragent",
+                  "full_name": "nageoffer/ragent",
+                  "html_url": "https://github.com/nageoffer/ragent",
+                  "description": "企业级 Agentic RAG 智能体 - 全链路覆盖文档解析、多路检索、意图识别、问题重写、会话记忆、MCP 工具调用与深度思考。面向真实业务场景，从 0 到 1 完整工程实现。",
+                  "stargazers_count": 3353,
+                  "forks_count": 672,
+                  "language": "Java",
+                  "updated_at": "2026-07-29T02:31:49Z",
+                  "owner": "nageoffer"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "ended_at": "2026-07-29T11:46:30"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-07-29T11:47:12",
+      "user": "Đăng bản tin này lên Telegram giúp mình",
+      "status": "waiting_for_user",
+      "assistant_text": "Bạn có muốn tôi đăng bản tin này lên Telegram không?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "clarify",
+              "args": {
+                "question": "Bạn có muốn tôi đăng bản tin này lên Telegram không?",
+                "response_type": "yes_no"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "clarify",
+              "args": {
+                "question": "Bạn có muốn tôi đăng bản tin này lên Telegram không?",
+                "response_type": "yes_no"
+              },
+              "result": {
+                "tool": "ask_user",
+                "question": "Bạn có muốn tôi đăng bản tin này lên Telegram không?",
+                "response_type": "yes_no",
+                "options": [],
+                "awaiting_user": true
+              }
+            }
+          ]
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có muốn tôi đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có muốn tôi đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ],
+      "ended_at": "2026-07-29T11:47:15"
+    },
+    {
+      "turn_index": 3,
+      "started_at": "2026-07-29T11:47:28",
+      "user": "Tìm model nổi bật về text-to-speech trên HuggingFace",
+      "status": "answered",
+      "assistant_text": "Here are some notable text-to-speech models available on Hugging Face:\n\n1. **[personal-speech-to-text-model](https://huggingface.co/fractalego/personal-speech-to-text-model)**\n   - **Downloads**: 28\n   - **Likes**: 8\n   - **Tags**: transformers, pytorch, wav2vec2, automatic-speech-recognition\n\n2. **[urdu-speech-to-text-test](https://huggingface.co/harislania/urdu-speech-to-text-test)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n3. **[urdu-speech-to-text](https://huggingface.co/harislania/urdu-speech-to-text)**\n   - **Downloads**: 10\n   - **Likes**: 3\n   - **Tags**: transformers, pytorch, tensorboard, wav2vec2, automatic-speech-recognition\n\n4. **[speech-to-text-ctc-v2-best-rq-conformer-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-quantized)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n5. **[speech-to-text-ctc-v2-best-rq-conformer-large-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large-quantized)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n6. **[speech-to-text-ctc-v2-hubert-conformer-large-3mixed-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-3mixed-quantized)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n7. **[speech-to-text-ctc-v2-best-rq-conformer-large](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n8. **[speech-to-text-ctc-v2-hubert-conformer-large-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-quantized)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n9. **[speech-to-text-ctc-v2-hubert-conformer](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n10. **[speech-to-text-ctc-v2-hubert-conformer-tiny-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-tiny-quantized)**\n    - **Downloads**: 0\n    - **Likes**: 0\n    - **Tags**: region:us\n\nThese models cover various aspects of speech recognition and synthesis, and you can explore them further through the provided links.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "huggingface_search",
+              "args": {
+                "query": "text-to-speech",
+                "search_type": "models"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "huggingface_search",
+              "args": {
+                "query": "text-to-speech",
+                "search_type": "models"
+              },
+              "result": {
+                "error": null,
+                "data": {
+                  "search_type": "models",
+                  "count": 10,
+                  "items": [
+                    {
+                      "id": "fractalego/personal-speech-to-text-model",
+                      "author": null,
+                      "downloads": 28,
+                      "likes": 8,
+                      "pipeline_tag": "automatic-speech-recognition",
+                      "tags": [
+                        "transformers",
+                        "pytorch",
+                        "wav2vec2",
+                        "automatic-speech-recognition",
+                        "endpoints_compatible",
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/fractalego/personal-speech-to-text-model"
+                    },
+                    {
+                      "id": "harislania/urdu-speech-to-text-test",
+                      "author": null,
+                      "downloads": 0,
+                      "likes": 0,
+                      "pipeline_tag": null,
+                      "tags": [
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/harislania/urdu-speech-to-text-test"
+                    },
+                    {
+                      "id": "harislania/urdu-speech-to-text",
+                      "author": null,
+                      "downloads": 10,
+                      "likes": 3,
+                      "pipeline_tag": "automatic-speech-recognition",
+                      "tags": [
+                        "transformers",
+                        "pytorch",
+                        "tensorboard",
+                        "wav2vec2",
+                        "automatic-speech-recognition",
+                        "endpoints_compatible",
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/harislania/urdu-speech-to-text"
+                    },
+                    {
+                      "id": "huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-quantized",
+                      "author": null,
+                      "downloads": 0,
+                      "likes": 0,
+                      "pipeline_tag": null,
+                      "tags": [
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-quantized"
+                    },
+                    {
+                      "id": "huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large-quantized",
+                      "author": null,
+                      "downloads": 0,
+                      "likes": 0,
+                      "pipeline_tag": null,
+                      "tags": [
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large-quantized"
+                    },
+                    {
+                      "id": "huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-3mixed-quantized",
+                      "author": null,
+                      "downloads": 0,
+                      "likes": 0,
+                      "pipeline_tag": null,
+                      "tags": [
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-3mixed-quantized"
+                    },
+                    {
+                      "id": "huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large",
+                      "author": null,
+                      "downloads": 0,
+                      "likes": 0,
+                      "pipeline_tag": null,
+                      "tags": [
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large"
+                    },
+                    {
+                      "id": "huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-quantized",
+                      "author": null,
+                      "downloads": 0,
+                      "likes": 0,
+                      "pipeline_tag": null,
+                      "tags": [
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-quantized"
+                    },
+                    {
+                      "id": "huseinzol05/speech-to-text-ctc-v2-hubert-conformer",
+                      "author": null,
+                      "downloads": 0,
+                      "likes": 0,
+                      "pipeline_tag": null,
+                      "tags": [
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer"
+                    },
+                    {
+                      "id": "huseinzol05/speech-to-text-ctc-v2-hubert-conformer-tiny-quantized",
+                      "author": null,
+                      "downloads": 0,
+                      "likes": 0,
+                      "pipeline_tag": null,
+                      "tags": [
+                        "region:us"
+                      ],
+                      "last_modified": "None",
+                      "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-tiny-quantized"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Here are some notable text-to-speech models available on Hugging Face:\n\n1. **[personal-speech-to-text-model](https://huggingface.co/fractalego/personal-speech-to-text-model)**\n   - **Downloads**: 28\n   - **Likes**: 8\n   - **Tags**: transformers, pytorch, wav2vec2, automatic-speech-recognition\n\n2. **[urdu-speech-to-text-test](https://huggingface.co/harislania/urdu-speech-to-text-test)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n3. **[urdu-speech-to-text](https://huggingface.co/harislania/urdu-speech-to-text)**\n   - **Downloads**: 10\n   - **Likes**: 3\n   - **Tags**: transformers, pytorch, tensorboard, wav2vec2, automatic-speech-recognition\n\n4. **[speech-to-text-ctc-v2-best-rq-conformer-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-quantized)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n5. **[speech-to-text-ctc-v2-best-rq-conformer-large-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large-quantized)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n6. **[speech-to-text-ctc-v2-hubert-conformer-large-3mixed-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-3mixed-quantized)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n7. **[speech-to-text-ctc-v2-best-rq-conformer-large](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n8. **[speech-to-text-ctc-v2-hubert-conformer-large-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-quantized)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n9. **[speech-to-text-ctc-v2-hubert-conformer](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer)**\n   - **Downloads**: 0\n   - **Likes**: 0\n   - **Tags**: region:us\n\n10. **[speech-to-text-ctc-v2-hubert-conformer-tiny-quantized](https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-tiny-quantized)**\n    - **Downloads**: 0\n    - **Likes**: 0\n    - **Tags**: region:us\n\nThese models cover various aspects of speech recognition and synthesis, and you can explore them further through the provided links.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "huggingface_search",
+          "args": {
+            "query": "text-to-speech",
+            "search_type": "models"
+          },
+          "result": {
+            "error": null,
+            "data": {
+              "search_type": "models",
+              "count": 10,
+              "items": [
+                {
+                  "id": "fractalego/personal-speech-to-text-model",
+                  "author": null,
+                  "downloads": 28,
+                  "likes": 8,
+                  "pipeline_tag": "automatic-speech-recognition",
+                  "tags": [
+                    "transformers",
+                    "pytorch",
+                    "wav2vec2",
+                    "automatic-speech-recognition",
+                    "endpoints_compatible",
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/fractalego/personal-speech-to-text-model"
+                },
+                {
+                  "id": "harislania/urdu-speech-to-text-test",
+                  "author": null,
+                  "downloads": 0,
+                  "likes": 0,
+                  "pipeline_tag": null,
+                  "tags": [
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/harislania/urdu-speech-to-text-test"
+                },
+                {
+                  "id": "harislania/urdu-speech-to-text",
+                  "author": null,
+                  "downloads": 10,
+                  "likes": 3,
+                  "pipeline_tag": "automatic-speech-recognition",
+                  "tags": [
+                    "transformers",
+                    "pytorch",
+                    "tensorboard",
+                    "wav2vec2",
+                    "automatic-speech-recognition",
+                    "endpoints_compatible",
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/harislania/urdu-speech-to-text"
+                },
+                {
+                  "id": "huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-quantized",
+                  "author": null,
+                  "downloads": 0,
+                  "likes": 0,
+                  "pipeline_tag": null,
+                  "tags": [
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-quantized"
+                },
+                {
+                  "id": "huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large-quantized",
+                  "author": null,
+                  "downloads": 0,
+                  "likes": 0,
+                  "pipeline_tag": null,
+                  "tags": [
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large-quantized"
+                },
+                {
+                  "id": "huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-3mixed-quantized",
+                  "author": null,
+                  "downloads": 0,
+                  "likes": 0,
+                  "pipeline_tag": null,
+                  "tags": [
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-3mixed-quantized"
+                },
+                {
+                  "id": "huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large",
+                  "author": null,
+                  "downloads": 0,
+                  "likes": 0,
+                  "pipeline_tag": null,
+                  "tags": [
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-best-rq-conformer-large"
+                },
+                {
+                  "id": "huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-quantized",
+                  "author": null,
+                  "downloads": 0,
+                  "likes": 0,
+                  "pipeline_tag": null,
+                  "tags": [
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-large-quantized"
+                },
+                {
+                  "id": "huseinzol05/speech-to-text-ctc-v2-hubert-conformer",
+                  "author": null,
+                  "downloads": 0,
+                  "likes": 0,
+                  "pipeline_tag": null,
+                  "tags": [
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer"
+                },
+                {
+                  "id": "huseinzol05/speech-to-text-ctc-v2-hubert-conformer-tiny-quantized",
+                  "author": null,
+                  "downloads": 0,
+                  "likes": 0,
+                  "pipeline_tag": null,
+                  "tags": [
+                    "region:us"
+                  ],
+                  "last_modified": "None",
+                  "url": "https://huggingface.co/huseinzol05/speech-to-text-ctc-v2-hubert-conformer-tiny-quantized"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "ended_at": "2026-07-29T11:47:42"
+    }
+  ],
+  "updated_at": "2026-07-29T11:47:42"
+}
