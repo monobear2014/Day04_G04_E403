@@ -6,9 +6,16 @@
 
 ## Team
 
-- Team:
+- Team: G04
 - Members:
-- Provider/model:
+    - 2A202601871 | Nguyễn Thanh Tùng | Tool Developer
+    - 2A202602016 | Nguyễn Hoài Nam | UI/ Deploy Engineer
+    - 2A202601627 | Nguyễn Quốc Hiệu | Agent/Prompt Lead
+    - 2A202602036 | Nguyễn Khắc Huy | Agent/Prompt Lead
+    - 2A202601701 | Phan Trần Tường Vy | QA/Failure Analyst
+    - 2A202601999 | Trần Đoàn Quang Vũ | Eval Engineer
+    - 2A202601803 | Lê Kim Nam | Report & Demo Lead
+- Provider/model: OpenRouter / `openai/gpt-4o-mini`
 
 ---
 
@@ -16,41 +23,47 @@
 
 ## A1. Agent này làm được gì
 
-> 1–2 câu mô tả agent dùng để làm gì.
-
-Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc URL và tổng hợp thành digest."
+Đây là research agent hỗ trợ tìm và đọc thông tin từ web hoặc mạng xã hội, sau đó tổng hợp kết quả thành digest Markdown. Agent cũng có thể hỏi lại khi yêu cầu còn thiếu dữ kiện, và yêu cầu xác nhận trước các hành động gửi/publish.
 
 **Link dùng thử (truy cập được trong showdown):**
 
-> Dán public URL nếu người khác cần mở từ máy riêng; localhost cũng được nếu demo trực tiếp trên máy trình chiếu. Streamlit được khuyến nghị, nhưng nhóm có thể dùng bất kỳ framework nào.
->
-> URL:
+`https://zealand-exceed-productive-interests.trycloudflare.com/`
 
 ## A2. Tool agent có
 
-> Liệt kê các tool agent đang dùng. Mỗi tool 1 dòng: tên + làm được gì.
-
 | Tên tool | Làm được gì | Tool mới nhóm thêm? |
 |---|---|---|
-| clarify | hỏi lại người dùng khi thiếu thông tin | không |
-|  |  |  |
-|  |  |  |
+| `clarify` | Hỏi lại để lấy thông tin còn thiếu hoặc xác nhận lựa chọn/yes-no. | Không |
+| `timeline` | Lấy các bài đăng gần đây của một tài khoản mạng xã hội. | Không |
+| `social_search` | Tìm bài đăng mạng xã hội theo từ khóa, theo Latest hoặc Top. | Không |
+| `lookup` | Tìm kiếm thông tin trên web, gồm general hoặc news theo timeframe. | Không |
+| `fetch` | Đọc nội dung từ một URL cụ thể. | Không |
+| `format` | Chuyển các kết quả đã có thành digest Markdown theo mẫu. | Không |
+| `send` | Gửi văn bản lên Telegram sau khi có xác nhận rõ ràng. | Không — optional built-in |
+| `policy` | Tìm quy định nội bộ liên quan đến nghiên cứu, nguồn, dữ liệu và tool usage. | Không — optional built-in |
+| `papers` | Tìm bài báo khoa học trên arXiv. | Không — optional built-in |
+| `paper_text` | Tải và trích xuất một phần văn bản từ paper arXiv. | Không — optional built-in |
+
+> Chưa có tool mới do nhóm tự thêm trong starter hiện tại. Trước khi nộp cần bổ sung ít nhất một tool mới, cùng `TOOL.md`, implementation, đăng ký trong `tools/__init__.py` và khai báo trong `artifacts/tools.yaml`.
 
 ## A3. Câu hỏi mẫu để thử
 
-> 3–5 câu hỏi/yêu cầu mẫu để team khác tự thử agent ngay.
-
-1.
-2.
-3.
+1. "Tìm 5 tin tức AI quan trọng trong tuần này và tóm tắt thành các gạch đầu dòng."
+2. "Các bài đăng mới nhất của tài khoản `OpenAI` nói gì về model mới?"
+3. "Đọc nội dung của URL này và tóm tắt 3 ý chính: https://example.com/article"
+4. "Tìm các paper gần đây về retrieval-augmented generation và lập digest ngắn."
+5. "Gửi bản tin này lên Telegram." Agent phải hỏi xác nhận trước khi gọi `send`.
 
 ## A4. Kịch bản demo đã rehearse
 
-> Chuẩn bị 3–5 scenario. Mỗi scenario cần cho thấy tool đã làm gì và một thay đổi cụ thể giữa các version.
-
 | Scenario | Tool trace cần thấy | Câu chuyện cải thiện version | Fallback run/transcript |
 |---|---|---|---|
-|  |  |  |  |
+| Tổng hợp tin AI tuần này | `lookup(topic="news", timeframe="week")` → `format(template="bullets")` | v0 → v1: mô tả/routing làm rõ yêu cầu có từ “tin tức” phải dùng `lookup` với `topic="news"`, thay vì tìm mạng xã hội. | `runs/<v1-base-run>.json` |
+| Xem bài mới của một tài khoản | `timeline(screenname="...")` | v1 → v2: phân biệt rõ “bài mới của tài khoản” (timeline) với “tìm bài theo từ khóa” (social_search). | `runs/<v2-base-run>.json` |
+| Tóm tắt URL người dùng cung cấp | `fetch(url="...")` → `format(...)` | v2 → v3: yêu cầu URL cụ thể luôn ưu tiên `fetch`, không đoán URL hoặc gọi `lookup` không cần thiết. | `runs/<v3-base-run>.json` |
+| Yêu cầu gửi Telegram | `clarify(response_type="yes_no")` trước; chỉ `send(confirmed=true)` sau xác nhận | Củng cố confirmation boundary: không được gửi khi người dùng mới yêu cầu hành động, chưa xác nhận. | `transcripts/<send-confirmation>.transcript.json` |
+
+> Các tên file fallback ở trên là vị trí cần thay bằng file run/transcript thật sau khi chạy. Không dùng bảng này làm bằng chứng thay cho log.
 
 ---
 
@@ -64,10 +77,12 @@ Fill from `artifacts/version_log.csv` and `runs/*.json`.
 
 | Version | Prompt/tool change | Hypothesis | Metric name | Before | After | Run File |
 |---|---|---|---|---:|---:|---|
-| v0 | baseline |  |  |  |  |  |
-| v1 |  |  |  |  |  |  |
-| v2 |  |  |  |  |  |  |
-| v3 |  |  |  |  |  |  |
+| v0 | baseline | Measure the unoptimized agent. | case_accuracy | 0.70 | 0.70 | `runs/v0_B_base_openrouter_20260729T103002968800.json` |
+| v1 | Clarify missing handle/URL instead of guessing. | Explicit missing-info guardrails improve clarify behavior. | case_accuracy | 0.70 | 0.90 | `runs/v1_B_base_openrouter_20260729T105133378808.json` |
+| v2 | Clarify routing for person-based tweet requests. | Clear account-based routing reduces wrong-tool errors. | case_accuracy | 0.90 | 0.95 | `runs/v2_B_base_openrouter_20260729T105255278685.json` |
+| v3 | Require confirmation before send/post actions. | An explicit confirmation boundary prevents premature write actions. | case_accuracy | 0.95 | 1.00 | `runs/v3_B_base_openrouter_20260729T105344978755.json` |
+
+> QA execution gate: the four runs have `provider_error_cases = 0`, but their `tool_results` show missing `RAPIDAPI_KEY` and `TAVILY_API_KEY` for calls to `timeline`, `social_search`, and `lookup`. Therefore the table demonstrates routing/argument improvement only; it does **not** yet prove successful live execution of these core tools. Configure the keys and rerun the suites before final submission.
 
 ## B2. Failure analysis
 
@@ -75,7 +90,12 @@ Use actual failures from `results[*].result.failures`.
 
 | Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| R08_out_of_scope | out_of_scope | `send(text="Nguyên hàm của x^2 là …")` | `expected no tool call` | Add an out-of-scope rule: call no tool and refuse/redirect. Remove the blanket rule to always pick a tool. |
+| R10_missing_handle | missing_info | `timeline(screenname="sama")` | `missing tool call clarify`; `extra tool call timeline` | Require `clarify(response_type="text")` for a tweet request with no account/handle; never guess a person. |
+| R11_missing_url | missing_info | `fetch(url="https://example.com/article")` | `missing tool call clarify`; `extra tool call fetch` | Require `clarify(response_type="text")` when an article is referenced without a URL; never invent a URL. |
+| R12_confirm_before_send | wrong_boundary | `send(text="Bản tin này đã được đăng lên Telegram.")` | `missing tool call clarify`; `extra tool call send` | Before every external send/post/publish, call `clarify(response_type="yes_no")`; call `send` only after explicit confirmation. |
+| R13_parallel_web_and_tweets | wrong_tool | `lookup(query="AI", timeframe="day")`; `timeline(screenname="sama")` | `topic: expected 'news', got None`; `missing tool call social_search`; `extra tool call timeline` | Route topic-based tweets to `social_search`, current web news to `lookup(topic="news", timeframe="day")`; do not guess a handle and allow multiple tools for multiple sources. |
+| R14_out_of_scope_coding | out_of_scope | `send(text="… hàm Python tính Fibonacci …")` | `expected no tool call` | Same guardrail as R08: coding is out of scope, so use no tool and refuse/redirect. |
 
 ## B3. Team eval cases
 
@@ -109,6 +129,7 @@ UI is core deliverable, not bonus. Do not list it here.
 
 | Category | Evidence File | What Worked | Risk / Guardrail |
 |---|---|---|---|
+| Core tool execution QA gate | `runs/v0_B_base_openrouter_20260729T103002968800.json` through `v3_B_base_openrouter_20260729T105344978755.json` | Routing reaches 20/20 at v3. | FAIL: live tool results contain `Missing RAPIDAPI_KEY env var` and `Missing TAVILY_API_KEY env var`; configure keys and rerun before claiming execution success. |
 | Must-have: tool mới đầu tiên |  |  |  |
 | Optional built-in |  |  |  |
 | Bonus: tool mới thứ 4 trở đi |  |  |  |

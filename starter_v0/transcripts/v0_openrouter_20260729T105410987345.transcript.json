@@ -1,0 +1,201 @@
+{
+  "transcript_id": "v0_openrouter_20260729T105410987345",
+  "version": "v0",
+  "artifact_version": "v0+pf0c107a9d7a1+t011c271ef0bb",
+  "prompt_hash": "f0c107a9d7a14032c948d642d7c36f2a85cb6d69a099530093a874c94d472446",
+  "tools_hash": "011c271ef0bbad1e19a5d7b660b2ed481b7d72950f1faa8a0798c3bdd8784ee1",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "artifacts/system_prompt.md",
+  "tools": "artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T10:59:27",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T10:59:27",
+      "user": "tìm AI hôm nay",
+      "status": "answered",
+      "assistant_text": "Here are the latest tweets related to AI:\n\n1. **@yepposaur**: \"lu pada harus tau gw pernah curhat via wasap ama temen trus dibales pake AI 😭 bjierz\" [View Tweet](https://x.com/yepposaur/status/2082315022655696974)\n\n2. **@billierjeans**: \"ai to cansaduxa vou meter o pé\" [View Tweet](https://x.com/billierjeans/status/2082315022290608184)\n\n3. **@pgemma862**: \"con el video filtrado del sinaka esta foto envejeció original below ,,????!!!;;\" [View Tweet](https://x.com/pgemma862/status/2082315021132960130)\n\n4. **@QT9277**: \"@Fraank9991 @sleepagotchi Count me in for the AI health party!\" [View Tweet](https://x.com/QT9277/status/2082315015642816718)\n\n5. **@EliXlooper**: \"@JoaoMSnow Criou a imagem de um herói humano na verdade, e o filme do Tobey está numa situaçao da realidade daquela época...\" [View Tweet](https://x.com/EliXlooper/status/2082315005664366933)\n\nLet me know if you need anything else!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "social_search",
+              "args": {
+                "query": "AI",
+                "search_type": "Latest",
+                "limit": 5
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "social_search",
+              "args": {
+                "query": "AI",
+                "search_type": "Latest",
+                "limit": 5
+              },
+              "result": {
+                "tool": "search_tweets",
+                "query": "AI",
+                "search_type": "Latest",
+                "items": [
+                  {
+                    "title": "lu pada harus tau gw pernah curhat via wasap ama temen trus dibales pake AI 😭 bjierz",
+                    "summary": "lu pada harus tau gw pernah curhat via wasap ama temen trus dibales pake AI 😭 bjierz",
+                    "url": "https://x.com/yepposaur/status/2082315022655696974",
+                    "source": "@yepposaur",
+                    "date": "Wed Jul 29 03:59:23 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 0,
+                      "views": null
+                    }
+                  },
+                  {
+                    "title": "ai to cansaduxa vou meter o pé",
+                    "summary": "ai to cansaduxa vou meter o pé",
+                    "url": "https://x.com/billierjeans/status/2082315022290608184",
+                    "source": "@billierjeans",
+                    "date": "Wed Jul 29 03:59:23 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 0,
+                      "views": null
+                    }
+                  },
+                  {
+                    "title": "con el video filtrado del sinaka esta foto envejeció original below ,,????!!!;;",
+                    "summary": "con el video filtrado del sinaka esta foto envejeció original below ,,????!!!;;\n🫒🆗🥀🍀🌹💊🫶💊🍁🌹🌹🌾🫒\nvídeo de sinaka vídeo completo\nAquí el video.65,.\nhttps://t.co/tvd9tb9YX3",
+                    "url": "https://x.com/pgemma862/status/2082315021132960130",
+                    "source": "@pgemma862",
+                    "date": "Wed Jul 29 03:59:23 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 0,
+                      "views": null
+                    }
+                  },
+                  {
+                    "title": "@Fraank9991 @sleepagotchi Count me in for the AI health party!",
+                    "summary": "@Fraank9991 @sleepagotchi Count me in for the AI health party!",
+                    "url": "https://x.com/QT9277/status/2082315015642816718",
+                    "source": "@QT9277",
+                    "date": "Wed Jul 29 03:59:21 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 0,
+                      "views": null
+                    }
+                  },
+                  {
+                    "title": "@JoaoMSnow Criou a imagem de um herói humano na verdade, e o filme do Tobey está numa situaçao da realidade daquela époc",
+                    "summary": "@JoaoMSnow Criou a imagem de um herói humano na verdade, e o filme do Tobey está numa situaçao da realidade daquela época, assim com o dos anos 50 estava e por ai vai. O problema está no depois ninguém conseguir fazer executar um filme do personagem que ressoe em todas as pessoas.",
+                    "url": "https://x.com/EliXlooper/status/2082315005664366933",
+                    "source": "@EliXlooper",
+                    "date": "Wed Jul 29 03:59:19 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 0,
+                      "views": "1"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Here are the latest tweets related to AI:\n\n1. **@yepposaur**: \"lu pada harus tau gw pernah curhat via wasap ama temen trus dibales pake AI 😭 bjierz\" [View Tweet](https://x.com/yepposaur/status/2082315022655696974)\n\n2. **@billierjeans**: \"ai to cansaduxa vou meter o pé\" [View Tweet](https://x.com/billierjeans/status/2082315022290608184)\n\n3. **@pgemma862**: \"con el video filtrado del sinaka esta foto envejeció original below ,,????!!!;;\" [View Tweet](https://x.com/pgemma862/status/2082315021132960130)\n\n4. **@QT9277**: \"@Fraank9991 @sleepagotchi Count me in for the AI health party!\" [View Tweet](https://x.com/QT9277/status/2082315015642816718)\n\n5. **@EliXlooper**: \"@JoaoMSnow Criou a imagem de um herói humano na verdade, e o filme do Tobey está numa situaçao da realidade daquela época...\" [View Tweet](https://x.com/EliXlooper/status/2082315005664366933)\n\nLet me know if you need anything else!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "AI",
+            "search_type": "Latest",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "AI",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "lu pada harus tau gw pernah curhat via wasap ama temen trus dibales pake AI 😭 bjierz",
+                "summary": "lu pada harus tau gw pernah curhat via wasap ama temen trus dibales pake AI 😭 bjierz",
+                "url": "https://x.com/yepposaur/status/2082315022655696974",
+                "source": "@yepposaur",
+                "date": "Wed Jul 29 03:59:23 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "ai to cansaduxa vou meter o pé",
+                "summary": "ai to cansaduxa vou meter o pé",
+                "url": "https://x.com/billierjeans/status/2082315022290608184",
+                "source": "@billierjeans",
+                "date": "Wed Jul 29 03:59:23 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "con el video filtrado del sinaka esta foto envejeció original below ,,????!!!;;",
+                "summary": "con el video filtrado del sinaka esta foto envejeció original below ,,????!!!;;\n🫒🆗🥀🍀🌹💊🫶💊🍁🌹🌹🌾🫒\nvídeo de sinaka vídeo completo\nAquí el video.65,.\nhttps://t.co/tvd9tb9YX3",
+                "url": "https://x.com/pgemma862/status/2082315021132960130",
+                "source": "@pgemma862",
+                "date": "Wed Jul 29 03:59:23 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "@Fraank9991 @sleepagotchi Count me in for the AI health party!",
+                "summary": "@Fraank9991 @sleepagotchi Count me in for the AI health party!",
+                "url": "https://x.com/QT9277/status/2082315015642816718",
+                "source": "@QT9277",
+                "date": "Wed Jul 29 03:59:21 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "@JoaoMSnow Criou a imagem de um herói humano na verdade, e o filme do Tobey está numa situaçao da realidade daquela époc",
+                "summary": "@JoaoMSnow Criou a imagem de um herói humano na verdade, e o filme do Tobey está numa situaçao da realidade daquela época, assim com o dos anos 50 estava e por ai vai. O problema está no depois ninguém conseguir fazer executar um filme do personagem que ressoe em todas as pessoas.",
+                "url": "https://x.com/EliXlooper/status/2082315005664366933",
+                "source": "@EliXlooper",
+                "date": "Wed Jul 29 03:59:19 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "1"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-07-29T10:59:35"
+    }
+  ],
+  "updated_at": "2026-07-29T10:59:35"
+}
