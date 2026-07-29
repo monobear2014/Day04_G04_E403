@@ -1,7 +1,249 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Template để NHÓM tự viết đúng 10 case: 5 single-turn dùng query và 5 multi-turn dùng turns. Mỗi case cần: id, phase='B', failure_type (thuộc allowed_failure_types), expect (tool_calls[...] hoặc no_tool=true), và metadata.what_it_tests. File để trống có chủ đích vì mỗi nhóm phải tự thiết kế các case này.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "Template để NHÓM tự viết đúng 10 case: 5 single-turn dùng query và 5 multi-turn dùng turns. Bộ case bao phủ toàn bộ 10 tool: clarify, fetch, format, lookup, paper_text, papers, policy, send, social_search, timeline.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "B01",
+      "phase": "B",
+      "query": "Tìm thông tin mới nhất về AI Agent evaluation trên web.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup"
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra agent có chọn lookup cho yêu cầu tìm kiếm thông tin trên web thay vì papers hoặc fetch."
+      }
+    },
+    {
+      "id": "B02",
+      "phase": "B",
+      "query": "Hãy lấy nội dung từ trang https://en.wikipedia.org/wiki/Artificial_intelligence để tôi đọc.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://en.wikipedia.org/wiki/Artificial_intelligence"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra agent có chọn fetch khi người dùng cung cấp một URL cụ thể cần truy xuất nội dung thay vì sử dụng lookup."
+      }
+    },
+    {
+      "id": "B03",
+      "phase": "B",
+      "query": "Tìm các bài nghiên cứu khoa học trên arXiv về AI Agent evaluation.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers"
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra agent có phân biệt yêu cầu tìm kiếm bài nghiên cứu khoa học trên arXiv với tìm kiếm web thông thường và chọn papers."
+      }
+    },
+    {
+      "id": "B04",
+      "phase": "B",
+      "query": "Tìm các bài đăng trên X/Twitter của tài khoản OpenAI.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline"
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra agent có phân biệt yêu cầu lấy timeline của một tài khoản cụ thể với yêu cầu tìm kiếm bài đăng trên mạng xã hội nói chung."
+      }
+    },
+    {
+      "id": "B05",
+      "phase": "B",
+      "query": "Tôi muốn bạn gửi kết quả nghiên cứu này đến Telegram.",
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": false
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra confirmation boundary của action tool send, đảm bảo agent không tự động gửi message thật khi chưa có xác nhận rõ ràng."
+      }
+    },
+    {
+      "id": "B06",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm thông tin mới nhất về AI Agent evaluation trên web."
+        },
+        {
+          "role": "assistant",
+          "content": "Tôi đã tìm thấy một số kết quả liên quan."
+        },
+        {
+          "role": "user",
+          "content": "Hãy tổng hợp các kết quả đó thành một bản tóm tắt ngắn gồm các ý chính."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "format"
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra multi-turn context và khả năng chuyển từ kết quả tìm kiếm sang format khi người dùng yêu cầu tổng hợp hoặc định dạng lại kết quả đã có."
+      }
+    },
+    {
+      "id": "B07",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm các bài nghiên cứu về RAG trên arXiv."
+        },
+        {
+          "role": "assistant",
+          "content": "Tôi đã tìm thấy một số bài nghiên cứu về RAG."
+        },
+        {
+          "role": "user",
+          "content": "Hãy lấy nội dung của bài có mã arXiv 1706.03762."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "https://arxiv.org/abs/1706.03762"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra agent sử dụng ngữ cảnh multi-turn để chuyển từ tìm kiếm paper sang lấy nội dung paper cụ thể bằng paper_text và sử dụng đúng URL arXiv."
+      }
+    },
+    {
+      "id": "B08",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm thông tin về OpenAI trên web."
+        },
+        {
+          "role": "assistant",
+          "content": "Tôi đã tìm thấy một số thông tin."
+        },
+        {
+          "role": "user",
+          "content": "Tôi muốn biết thêm các bài đăng trên X/Twitter nói về OpenAI và AI Agent."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search"
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra agent có nhận diện thay đổi nguồn dữ liệu trong multi-turn context và chuyển từ lookup sang social_search khi người dùng yêu cầu tìm kiếm nội dung trên mạng xã hội."
+      }
+    },
+    {
+      "id": "B09",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tôi muốn tìm hiểu về AI Agent evaluation."
+        },
+        {
+          "role": "assistant",
+          "content": "Tôi có thể hỗ trợ tìm kiếm và tổng hợp thông tin về chủ đề này."
+        },
+        {
+          "role": "user",
+          "content": "Hãy kiểm tra xem yêu cầu này có phù hợp với chính sách sử dụng hay có nội dung bị hạn chế không."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy"
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra agent có chuyển sang policy khi người dùng yêu cầu kiểm tra chính sách thay vì tiếp tục tìm kiếm thông tin bằng lookup."
+      }
+    },
+    {
+      "id": "B10",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tôi muốn tìm một bài nghiên cứu về AI Agent nhưng chưa nhớ tên bài, tác giả hay mã arXiv."
+        },
+        {
+          "role": "assistant",
+          "content": "Tôi cần thêm thông tin để xác định chính xác bài nghiên cứu bạn muốn tìm."
+        },
+        {
+          "role": "user",
+          "content": "Tôi cũng không có thêm thông tin nào khác."
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify"
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Kiểm tra agent xử lý tình huống thiếu thông tin bằng clarify thay vì tự đoán hoặc gọi tool không phù hợp."
+      }
+    }
+  ]
 }
