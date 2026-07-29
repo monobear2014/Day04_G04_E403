@@ -6,9 +6,16 @@
 
 ## Team
 
-- Team:
-- Members:
-- Provider/model:
+- Team: G04
+- Members: 
+    - 2A202601871 | Nguyễn Thanh Tùng | Tool Developer
+    - 2A202602016 | Nguyễn Hoài Nam | UI/ Deploy Engineer 
+    - 2A202601627 | Nguyễn Quốc Hiệu | Agent/Prompt Lead
+    - 2A202602036 | Nguyễn Khắc Huy | Agent/Prompt Lead
+    - 2A202601701 | Phan Trần Tường Vy | QA/Failure Analyst
+    - 2A202601999 | Trần Đoàn Quang Vũ | Eval Engineer
+    - 2A202601803 | Lê Kim Nam | Report & Demo Lead
+- Provider/model: gpt-4o-mini
 
 ---
 
@@ -16,41 +23,47 @@
 
 ## A1. Agent này làm được gì
 
-> 1–2 câu mô tả agent dùng để làm gì.
-
-Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc URL và tổng hợp thành digest."
+Đây là research agent hỗ trợ tìm và đọc thông tin từ web hoặc mạng xã hội, sau đó tổng hợp kết quả thành digest Markdown. Agent cũng có thể hỏi lại khi yêu cầu còn thiếu dữ kiện, và yêu cầu xác nhận trước các hành động gửi/publish.
 
 **Link dùng thử (truy cập được trong showdown):**
 
-> Dán public URL nếu người khác cần mở từ máy riêng; localhost cũng được nếu demo trực tiếp trên máy trình chiếu. Streamlit được khuyến nghị, nhưng nhóm có thể dùng bất kỳ framework nào.
->
-> URL:
+Chưa có URL vì UI chưa được tạo/deploy trong starter hiện tại. Khi hoàn thành UI Streamlit, dùng `http://localhost:8501` để demo tại chỗ hoặc điền public URL (ví dụ Cloudflare Tunnel) tại đây.
 
 ## A2. Tool agent có
 
-> Liệt kê các tool agent đang dùng. Mỗi tool 1 dòng: tên + làm được gì.
-
 | Tên tool | Làm được gì | Tool mới nhóm thêm? |
 |---|---|---|
-| clarify | hỏi lại người dùng khi thiếu thông tin | không |
-|  |  |  |
-|  |  |  |
+| `clarify` | Hỏi lại để lấy thông tin còn thiếu hoặc xác nhận lựa chọn/yes-no. | Không |
+| `timeline` | Lấy các bài đăng gần đây của một tài khoản mạng xã hội. | Không |
+| `social_search` | Tìm bài đăng mạng xã hội theo từ khóa, theo Latest hoặc Top. | Không |
+| `lookup` | Tìm kiếm thông tin trên web, gồm general hoặc news theo timeframe. | Không |
+| `fetch` | Đọc nội dung từ một URL cụ thể. | Không |
+| `format` | Chuyển các kết quả đã có thành digest Markdown theo mẫu. | Không |
+| `send` | Gửi văn bản lên Telegram sau khi có xác nhận rõ ràng. | Không — optional built-in |
+| `policy` | Tìm quy định nội bộ liên quan đến nghiên cứu, nguồn, dữ liệu và tool usage. | Không — optional built-in |
+| `papers` | Tìm bài báo khoa học trên arXiv. | Không — optional built-in |
+| `paper_text` | Tải và trích xuất một phần văn bản từ paper arXiv. | Không — optional built-in |
+
+> Chưa có tool mới do nhóm tự thêm trong starter hiện tại. Trước khi nộp cần bổ sung ít nhất một tool mới, cùng `TOOL.md`, implementation, đăng ký trong `tools/__init__.py` và khai báo trong `artifacts/tools.yaml`.
 
 ## A3. Câu hỏi mẫu để thử
 
-> 3–5 câu hỏi/yêu cầu mẫu để team khác tự thử agent ngay.
-
-1.
-2.
-3.
+1. "Tìm 5 tin tức AI quan trọng trong tuần này và tóm tắt thành các gạch đầu dòng."
+2. "Các bài đăng mới nhất của tài khoản `OpenAI` nói gì về model mới?"
+3. "Đọc nội dung của URL này và tóm tắt 3 ý chính: https://example.com/article"
+4. "Tìm các paper gần đây về retrieval-augmented generation và lập digest ngắn."
+5. "Gửi bản tin này lên Telegram." Agent phải hỏi xác nhận trước khi gọi `send`.
 
 ## A4. Kịch bản demo đã rehearse
 
-> Chuẩn bị 3–5 scenario. Mỗi scenario cần cho thấy tool đã làm gì và một thay đổi cụ thể giữa các version.
-
 | Scenario | Tool trace cần thấy | Câu chuyện cải thiện version | Fallback run/transcript |
 |---|---|---|---|
-|  |  |  |  |
+| Tổng hợp tin AI tuần này | `lookup(topic="news", timeframe="week")` → `format(template="bullets")` | v0 → v1: mô tả/routing làm rõ yêu cầu có từ “tin tức” phải dùng `lookup` với `topic="news"`, thay vì tìm mạng xã hội. | `runs/<v1-base-run>.json` |
+| Xem bài mới của một tài khoản | `timeline(screenname="...")` | v1 → v2: phân biệt rõ “bài mới của tài khoản” (timeline) với “tìm bài theo từ khóa” (social_search). | `runs/<v2-base-run>.json` |
+| Tóm tắt URL người dùng cung cấp | `fetch(url="...")` → `format(...)` | v2 → v3: yêu cầu URL cụ thể luôn ưu tiên `fetch`, không đoán URL hoặc gọi `lookup` không cần thiết. | `runs/<v3-base-run>.json` |
+| Yêu cầu gửi Telegram | `clarify(response_type="yes_no")` trước; chỉ `send(confirmed=true)` sau xác nhận | Củng cố confirmation boundary: không được gửi khi người dùng mới yêu cầu hành động, chưa xác nhận. | `transcripts/<send-confirmation>.transcript.json` |
+
+> Các tên file fallback ở trên là vị trí cần thay bằng file run/transcript thật sau khi chạy. Không dùng bảng này làm bằng chứng thay cho log.
 
 ---
 
