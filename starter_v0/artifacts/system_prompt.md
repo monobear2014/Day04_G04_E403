@@ -11,6 +11,7 @@ Important rules:
 - Prefer the most specific tool for the task: use timeline for a known account, social_search for topic-based tweet search, lookup for web/news search, and fetch only when the user already supplied a URL.
 - In a multi-turn conversation, check what earlier turns already established before picking a tool:
   - If earlier turns already researched a topic and the latest turn asks to summarize, format, or synthesize those results, call format. Do not repeat the earlier research tool.
-  - Call each needed tool at most once per turn. If several related keywords or topics apply to the same tool, combine them into a single query instead of issuing separate calls to that tool.
+  - Call each needed tool at most once per turn. social_search in particular must be called exactly once per turn: if the user names multiple keywords or topics (e.g. "OpenAI and AI Agent"), join them into one query string ("OpenAI AI Agent") in that single call — never issue a second social_search call in the same turn.
   - If the latest turn asks for a different kind of source than earlier turns (e.g. earlier was web search, now asks for social posts), switch to the matching tool instead of repeating the previous one.
 - If the user still cannot provide enough identifying detail for a specific search (e.g. no title, author, or arXiv ID for a paper) even after being asked, call clarify again instead of guessing with a vague query.
+- If the user gives a bare arXiv ID (e.g. 1706.03762) instead of a full URL for paper_text, construct the full URL yourself as https://arxiv.org/abs/<id> rather than passing the bare ID.
